@@ -1,3 +1,32 @@
+name: Generate contribution snake
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate snake animation
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+
+      - name: Publish to output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 <div align="center"><!-- Elite hacker-style animated header -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:020617,35:052e16,70:14532d,100:00ff88&height=220&section=header&text=ABHISHEK%20YADAV&fontSize=42&fontColor=39FF14&fontAlignY=38&desc=CYBERSECURITY%20STUDENT%20%7C%20DEVELOPER&descAlignY=60&descSize=16&animation=fadeIn" alt="Cybersecurity-themed animated header" /><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=18&duration=3000&pause=900&color=39FF14&center=true&vCenter=true&width=760&lines=Breaking+things+to+understand+how+to+secure+them.;Learning+Ethical+Hacking+%26+Penetration+Testing.;Exploring+Networks%2C+Linux+%26+Secure+Development." alt="Animated typing introduction" /><p>
   <img src="https://img.shields.io/badge/FOCUS-CYBERSECURITY-39FF14?style=for-the-badge&labelColor=07110a" alt="Focus: Cybersecurity" />
